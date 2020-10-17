@@ -1,0 +1,40 @@
+.login-form{
+    border: 1px solid rgba(1,1,1,0.2);
+    padding:50px;
+    border-radius: 10px;
+    margin: 1em;
+}
+
+.input-container{
+    padding:1.5em;
+    display: flex;
+    align-items:center;
+    justify-content: space-evenly;
+}
+
+.input-container:last-of-type{
+    padding-bottom: 0;
+}
+
+.form-title{
+    margin-top: 0;
+    text-align: center;
+}
+
+.center-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-container > .login-container{
+    height: 100vh;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.clickable:hover{
+    cursor: pointer;
+}
