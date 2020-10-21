@@ -65,7 +65,13 @@ export function AuthContextProvider(props){
     }
     console.log('context: ',authState);
     return (
-        <AuthContext.Provider value={{authState,login}}>
+        <AuthContext.Provider value={{
+            isLoggedIn:authState.isLoggedIn,
+            authError:authState.authError,
+            authKey:authState.authKey,
+            authLoading:authState.authLoading,
+            authState
+            ,login}}>
             {props.children}
         </AuthContext.Provider>
     );

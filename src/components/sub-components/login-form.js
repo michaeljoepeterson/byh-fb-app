@@ -11,8 +11,8 @@ export default function LoginForm(props){
 
     const [email,setEmail] = useState(null);
     const [pass,setPass] = useState(null);
-    const {authState,login} = useContext(AuthContext); 
-    const {authLoading,authError} = authState;
+    const {authLoading,authError,login} = useContext(AuthContext); 
+    //const {authLoading,authError} = authState;
     const emailType = 'email';
     const passType = 'pass';
     const tryLogin = async (event) => {
