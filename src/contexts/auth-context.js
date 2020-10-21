@@ -17,7 +17,7 @@ export function AuthContextProvider(props){
     const updateState = newState => setAuthState(Object.assign({}, authState, newState));
 
     const fb = useContext(FirebaseContext); 
-    console.log('fb: ',fb);
+
     const resetAuth = (err) => {
         let newState = {...authState};
         newState.authKey = null;
@@ -67,14 +67,18 @@ export function AuthContextProvider(props){
         }
     }
 
+    const createUser = async (email,password) => {
+
+    }
+
     return (
         <AuthContext.Provider value={{
             isLoggedIn:authState.isLoggedIn,
             authError:authState.authError,
             authKey:authState.authKey,
             authLoading:authState.authLoading,
-            authState
-            ,login}}>
+            login
+            }}>
             {props.children}
         </AuthContext.Provider>
     );

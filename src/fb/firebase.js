@@ -15,7 +15,7 @@ class Firebase {
 
   createUserEmail = async (email,pass) => {
     try{
-        await this.auth.createUserWithEmailAndPassword(email,pass);
+        return this.auth.createUserWithEmailAndPassword(email,pass);
     }
     catch(e){
         console.log('error logging in: ',e);
@@ -24,7 +24,7 @@ class Firebase {
 
   signInEmail = async (email,pass) => {
       try{
-          await this.auth.signInWithEmailAndPassword(email,pass);
+          return this.auth.signInWithEmailAndPassword(email,pass);
       }
       catch(e){
         console.log('error signing in: ',e);

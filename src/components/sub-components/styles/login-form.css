@@ -38,3 +38,7 @@
 .clickable:hover{
     cursor: pointer;
 }
+
+.button-link{
+    text-decoration: none;
+}
