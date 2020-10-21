@@ -12,21 +12,24 @@ export default function CreateUserForm(props){
     const [email,setEmail] = useState(null);
     const [pass,setPass] = useState(null);
     const [confirmPass,setConfirmPass] = useState(null);
-    const {authLoading,authError,login} = useContext(AuthContext); 
+    const [custError,setCustError] = useState(null);
+    const {authLoading,authError,createUser} = useContext(AuthContext); 
     //const {authLoading,authError} = authState;
     const emailType = 'email';
     const passType = 'pass';
     const confirmPassType = 'confirmPass';
     const tryCreate = async (event) => {
+        debugger;
         event.persist();
         event.preventDefault();
+        setCustError(null);
         if(pass !== confirmPass){
-            return 
+            setCustError('passwords do not match');
+            return ;
         }
         if(email && pass){
-            console.log('login');
             try{
-                await login(email,pass);
+                await createUser(email,pass);
             }
             catch(e){
 
@@ -43,6 +46,9 @@ export default function CreateUserForm(props){
         else if(type === passType){
             setPass(val);
         }
+        else if(type === confirmPassType){
+            setConfirmPass(val);
+        }
     }
     let displayLoading = authLoading;
     //console.log('loading: ',displayLoading);
@@ -52,13 +58,13 @@ export default function CreateUserForm(props){
             <form className="login-form" onSubmit={(e) => tryCreate(e)}>
                 <Typography variant='h4' className="form-title">{props.title}</Typography>
                 <div className="input-container">
-                    <TextField required id="user" label="Email" variant="outlined" helperText={authError ? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,emailType)}/>
+                    <TextField required id="user" label="Email" variant="outlined" helperText={authError || custError ? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,emailType)}/>
                 </div>
                 <div className="input-container">
-                    <TextField required id="password" label="Password" variant="outlined" type="password" helperText={authError ? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,passType)}/>
+                    <TextField required id="password" label="Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,passType)}/>
                 </div>
                 <div className="input-container">
-                    <TextField required id="password" label="Confirm Password" variant="outlined" type="password" helperText={authError ? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,confirmPassType)}/>
+                    <TextField required id="password" label="Confirm Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,confirmPassType)}/>
                 </div>
                 <div className="input-container">
                     <CircularProgress className={displayLoading ? '' : 'hidden'} />

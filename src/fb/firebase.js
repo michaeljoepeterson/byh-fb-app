@@ -10,7 +10,6 @@ class Firebase {
     //}
 
     this.auth = app.auth();
-    this.currentUser = this.auth.currentUser;
   }
 
   createUserEmail = async (email,pass) => {
@@ -42,7 +41,7 @@ class Firebase {
 
   getToken = async () => {
       try{
-        let token = await this.currentUser.getIdToken(true);
+        let token = await this.auth.currentUser.getIdToken(true);
         return token;
       } 
       catch(e){

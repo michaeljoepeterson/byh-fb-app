@@ -68,7 +68,22 @@ export function AuthContextProvider(props){
     }
 
     const createUser = async (email,password) => {
-
+        try{
+            setLoading(true);
+            const user = await fb.createUserEmail(email,password);
+            const authToken = await fb.getToken();
+            if(authToken){
+                setAuth(authToken);
+            }
+            else{
+                resetAuth();
+            }
+        }
+        catch(e){
+            console.log('error creating user',e);
+            resetAuth(e);
+            throw(e);
+        }
     }
 
     return (
@@ -77,7 +92,8 @@ export function AuthContextProvider(props){
             authError:authState.authError,
             authKey:authState.authKey,
             authLoading:authState.authLoading,
-            login
+            login,
+            createUser
             }}>
             {props.children}
         </AuthContext.Provider>
