@@ -46,13 +46,9 @@ export function AuthContextProvider(props){
     const login = async (email,password) => {
         try{
             setLoading(true);
-            const url = `${API_BASE_URL}/auth/login`;
-            const body = {
-                email,
-                password
-            };
-            const authRes = await axios.post(url,body);
-            const {authToken} = authRes.data;
+            const user = await fb.signInEmail(email,password);
+            const authToken = await fb.getToken();
+
             if(authToken){
                 setAuth(authToken);
             }

@@ -19,7 +19,6 @@ export default function CreateUserForm(props){
     const passType = 'pass';
     const confirmPassType = 'confirmPass';
     const tryCreate = async (event) => {
-        debugger;
         event.persist();
         event.preventDefault();
         setCustError(null);

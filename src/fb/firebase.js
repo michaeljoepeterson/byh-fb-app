@@ -1,7 +1,7 @@
 import app from 'firebase/app';
 import {fbConfig} from '../firebase-config';
 import 'firebase/auth';
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';
  
 class Firebase {
   constructor() {
