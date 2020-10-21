@@ -1,5 +1,6 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import {API_BASE_URL} from '../config';
+import {FirebaseContext} from '../contexts/firebase-context';
 const axios = require('axios');
 //to do local storage implementation
 export const AuthContext = createContext();
@@ -15,6 +16,8 @@ export function AuthContextProvider(props){
 
     const updateState = newState => setAuthState(Object.assign({}, authState, newState));
 
+    const fb = useContext(FirebaseContext); 
+    console.log('fb: ',fb);
     const resetAuth = (err) => {
         let newState = {...authState};
         newState.authKey = null;
@@ -63,7 +66,7 @@ export function AuthContextProvider(props){
             throw(e);
         }
     }
-    console.log('context: ',authState);
+
     return (
         <AuthContext.Provider value={{
             isLoggedIn:authState.isLoggedIn,

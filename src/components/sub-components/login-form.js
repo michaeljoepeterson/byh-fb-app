@@ -40,8 +40,8 @@ export default function LoginForm(props){
         }
     }
     let displayLoading = authLoading;
-    console.log('loading: ',displayLoading);
-    console.log('render form',authError,displayLoading);
+    //console.log('loading: ',displayLoading);
+    //console.log('render form',authError,displayLoading);
     return(
         <div className="login-container center-container">
             <form className="login-form" onSubmit={(e) => tryLogin(e)}>
