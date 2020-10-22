@@ -61,7 +61,7 @@ export default function LoginForm(props){
                         </Button>
                     </Link>
                 </div>
-                <div class="google-sign-in">
+                <div className="google-sign-in">
                     <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" onClick={(e) => googleSignIn()}>Sign In With Google</Button>
                 </div>
             </form>

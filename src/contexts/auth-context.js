@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
-import {API_BASE_URL} from '../config';
+//import {API_BASE_URL} from '../config';
 import {FirebaseContext} from '../contexts/firebase-context';
-const axios = require('axios');
+//const axios = require('axios');
 //to do local storage implementation
 export const AuthContext = createContext();
 
