@@ -11,7 +11,7 @@ export default function LoginForm(props){
 
     const [email,setEmail] = useState(null);
     const [pass,setPass] = useState(null);
-    const {authLoading,authError,login} = useContext(AuthContext); 
+    const {authLoading,authError,login,googleSignIn} = useContext(AuthContext); 
     //const {authLoading,authError} = authState;
     const emailType = 'email';
     const passType = 'pass';
@@ -60,6 +60,9 @@ export default function LoginForm(props){
                         Create
                         </Button>
                     </Link>
+                </div>
+                <div class="google-sign-in">
+                    <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" onClick={(e) => googleSignIn()}>Sign In With Google</Button>
                 </div>
             </form>
         </div>

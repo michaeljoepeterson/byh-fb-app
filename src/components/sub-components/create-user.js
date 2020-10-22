@@ -13,7 +13,7 @@ export default function CreateUserForm(props){
     const [pass,setPass] = useState(null);
     const [confirmPass,setConfirmPass] = useState(null);
     const [custError,setCustError] = useState(null);
-    const {authLoading,authError,createUser} = useContext(AuthContext); 
+    const {authLoading,authError,createUser,googleSignIn} = useContext(AuthContext); 
     //const {authLoading,authError} = authState;
     const emailType = 'email';
     const passType = 'pass';
@@ -73,6 +73,9 @@ export default function CreateUserForm(props){
                         </Button>
                     </Link>
                     <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" type="submit">Create</Button>
+                </div>
+                <div class="google-sign-in">
+                    <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" onClick={(e) => googleSignIn()}>Sign In With Google</Button>
                 </div>
             </form>
         </div>

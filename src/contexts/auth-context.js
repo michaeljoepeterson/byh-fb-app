@@ -82,6 +82,24 @@ export function AuthContextProvider(props){
         }
     }
 
+    const googleSignIn = async () => {
+        try {
+            const user = await fb.signInWithGoogle();
+            const authToken = await fb.getToken();
+
+            if(authToken){
+                setAuth(authToken);
+            }
+            else{
+                resetAuth();
+            }
+        }
+        catch(e){
+            console.log('error creating user',e);
+            resetAuth(e);
+        }
+    }
+
     return (
         <AuthContext.Provider value={{
             isLoggedIn:authState.isLoggedIn,
@@ -89,7 +107,8 @@ export function AuthContextProvider(props){
             authKey:authState.authKey,
             authLoading:authState.authLoading,
             login,
-            createUser
+            createUser,
+            googleSignIn
             }}>
             {props.children}
         </AuthContext.Provider>

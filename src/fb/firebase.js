@@ -1,32 +1,52 @@
 import app from 'firebase/app';
 import {fbConfig} from '../firebase-config';
 import 'firebase/auth';
-//import * as firebase from 'firebase';
+import firebase from 'firebase';
  
 class Firebase {
+  //can optionally use returned user to get auth token
   constructor() {
     //if(!firebase.apps.length){
-        app.initializeApp(fbConfig);
+    app.initializeApp(fbConfig);
     //}
 
     this.auth = app.auth();
+    this.provider = new firebase.auth.GoogleAuthProvider;
+  }
+
+  signInWithGoogle = async () =>{
+    try{
+      const result = await this.auth.signInWithPopup(this.provider);
+      if(!result){
+        throw {message:'no account selected'};
+      }
+      return result.user;
+    }
+    catch(e){
+        console.log('error logging in with google: ',e);
+        throw e;
+    }
   }
 
   createUserEmail = async (email,pass) => {
     try{
-        return this.auth.createUserWithEmailAndPassword(email,pass);
+        const result = await this.auth.createUserWithEmailAndPassword(email,pass);
+        return result.user;
     }
     catch(e){
         console.log('error logging in: ',e);
+        throw e;
     }
   }
 
   signInEmail = async (email,pass) => {
       try{
-          return this.auth.signInWithEmailAndPassword(email,pass);
+          const result = await this.auth.signInWithEmailAndPassword(email,pass);
+          return result.user;
       }
       catch(e){
         console.log('error signing in: ',e);
+        throw e;
       }
   }
 
@@ -36,6 +56,7 @@ class Firebase {
       }
       catch(e){
         console.log('error loggint out: ',e);
+        throw e;
       }
   }
 
@@ -46,6 +67,7 @@ class Firebase {
       } 
       catch(e){
           console.log('error getting token:', e);
+          throw e;
       }
   }
 }

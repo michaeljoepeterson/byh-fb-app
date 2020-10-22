@@ -42,3 +42,8 @@
 .button-link{
     text-decoration: none;
 }
+
+.google-sign-in{
+    display:flex;
+    justify-content: center;
+}
