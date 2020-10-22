@@ -86,7 +86,6 @@ export function AuthContextProvider(props){
         try {
             const user = await fb.signInWithGoogle();
             const authToken = await fb.getToken();
-
             if(authToken){
                 setAuth(authToken);
             }
