@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import RequiresLogin from '../../HOC/requires-login';
 import {ByhReqContext} from '../../contexts/byh-req-context';
 import Button from '@material-ui/core/Button';
+import FormTable from '../sub-components/form-table';
 
 function ProtectedPage(props){
     const [formData,setFormData] = useState(null);
@@ -11,21 +12,20 @@ function ProtectedPage(props){
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center'
-    }
+    };
 
     const getFormData = async () =>{
         try{
             let response = await getForms();
-            //debugger;
             setFormData(response.message);
         }
         catch(e){
             setFormData(null);
         }
-    }
+    };
 
     const formElement = formData ? (<p>{formData}</p>) : null;
-
+    const formTable = formData ? (<FormTable forms={[formData.document]}/>) : null;
     return(
         <div style={placeholderStyles}>
             <p>protected page</p>
@@ -33,6 +33,9 @@ function ProtectedPage(props){
                 <Button variant="contained" color="primary" onClick={(e) => getFormData()}>Get Protected Forms</Button>
             </div>
             {formElement}
+            <div>
+                {formTable}
+            </div>
         </div>
     )
 }
