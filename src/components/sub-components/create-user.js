@@ -11,6 +11,8 @@ export default function CreateUserForm(props){
 
     const [email,setEmail] = useState(null);
     const [pass,setPass] = useState(null);
+    const [firstName,setFirstName] = useState(null);
+    const [lastName,setLastName] = useState(null);
     const [confirmPass,setConfirmPass] = useState(null);
     const [custError,setCustError] = useState(null);
     const {authLoading,authError,createUser,googleSignIn} = useContext(AuthContext); 
@@ -18,6 +20,8 @@ export default function CreateUserForm(props){
     const emailType = 'email';
     const passType = 'pass';
     const confirmPassType = 'confirmPass';
+    const firstNameType = 'firstName';
+    const lastNameType = 'lastName';
     const tryCreate = async (event) => {
         event.persist();
         event.preventDefault();
@@ -47,6 +51,12 @@ export default function CreateUserForm(props){
         }
         else if(type === confirmPassType){
             setConfirmPass(val);
+        }
+        else if(type === firstNameType){
+            setFirstName(val);
+        }
+        else if(type === lastNameType){
+            setFirstName(lastName);
         }
     }
     let displayLoading = authLoading;

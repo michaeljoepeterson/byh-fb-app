@@ -17,7 +17,7 @@ export function LandingPage(props){
 
     if(props.location.pathname.includes('/test')){
         //props.dispatch(enableTestMode());
-        return <Redirect to='/'/>;
+        //return <Redirect to='/'/>;
     }
     
 
