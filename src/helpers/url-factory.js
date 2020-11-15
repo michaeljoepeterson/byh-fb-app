@@ -13,7 +13,13 @@ class UrlFactory{
     }
 
     buildLink = (url) =>{
-        let projectLink = `${this.project}/${url}`;
+        let projectLink = null;
+        if(url){
+            projectLink = `/${this.project}/${url}`;
+        }
+        else{
+            projectLink = `/${this.project}`;
+        }
 
         return projectLink;
     }
@@ -42,6 +48,7 @@ class UrlFactory{
             return false;
         }
     }
+
 }
 
 export let urlFactory = new UrlFactory();

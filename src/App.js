@@ -31,6 +31,7 @@ function App() {
   }
   
   let landingPageUrl = `/${project}/`;
+  let protectedPageUrl = `/${project}/protected`
 
   return (
     <FirebaseContextProvider>
@@ -39,12 +40,15 @@ function App() {
           <Route exact path={landingPageUrl}  render={(props) => (
             <LandingPage key={props.match.params.pageid} {...props}/>)
           }/>
-          <Route exact path="/protected" render={(props) => (
+          <Route exact path={protectedPageUrl} render={(props) => (
             <ProtectedPage key={props.match.params.pageid} {...props} />)
           } />
           <Route exact path="/create-admin" render={(props) => (
             <LandingPage key={props.match.params.pageid} {...props} />)
           } />
+          <Route render={(props) => (
+            <LandingPage key={props.match.params.pageid} {...props}/>)} 
+            />
         </ByhReqContextProvider>
       </AuthContextProvider>
     </FirebaseContextProvider>
