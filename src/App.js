@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Route ,useHistory } from 'react-router-dom';
+import {Route ,useHistory,Switch } from 'react-router-dom';
 import LandingPage from './components/pages/landing-page';
 import ProtectedPage from './components/pages/protected-page';
 import {AuthContextProvider} from './contexts/auth-context';
@@ -15,7 +15,7 @@ function App() {
   const history = useHistory();
   if(!project){
     history.push(`byh/`);
-    urlFactory.getProject();
+    urlFactory.setAppProject();
     setProject(urlFactory.project);
   }
   else{
@@ -31,24 +31,27 @@ function App() {
   }
   
   let landingPageUrl = `/${project}/`;
-  let protectedPageUrl = `/${project}/protected`
+  let protectedPageUrl = `/${project}/protected`;
+  let createAdminUrl = `/${project}/create-admin`
 
   return (
     <FirebaseContextProvider>
       <AuthContextProvider>
         <ByhReqContextProvider>
-          <Route exact path={landingPageUrl}  render={(props) => (
-            <LandingPage key={props.match.params.pageid} {...props}/>)
-          }/>
-          <Route exact path={protectedPageUrl} render={(props) => (
-            <ProtectedPage key={props.match.params.pageid} {...props} />)
-          } />
-          <Route exact path="/create-admin" render={(props) => (
-            <LandingPage key={props.match.params.pageid} {...props} />)
-          } />
-          <Route render={(props) => (
-            <LandingPage key={props.match.params.pageid} {...props}/>)} 
-            />
+          <Switch>
+            <Route exact path={landingPageUrl}  render={(props) => (
+              <LandingPage key={props.match.params.pageid} {...props}/>)
+            }/>
+            <Route exact path={protectedPageUrl} render={(props) => (
+              <ProtectedPage key={props.match.params.pageid} {...props} />)
+            } />
+            <Route exact path={createAdminUrl} render={(props) => (
+              <LandingPage key={props.match.params.pageid} {...props} />)
+            } />
+            <Route render={(props) => (
+              <LandingPage key={props.match.params.pageid} {...props}/>)} 
+              />
+          </Switch>
         </ByhReqContextProvider>
       </AuthContextProvider>
     </FirebaseContextProvider>

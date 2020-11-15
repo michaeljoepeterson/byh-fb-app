@@ -1,12 +1,15 @@
 import React, { useState, createContext, useContext } from 'react';
 //import {API_BASE_URL} from '../config';
 import {FirebaseContext} from '../contexts/firebase-context';
-//const axios = require('axios');
+import {API_BASE_URL} from '../config';
+import {urlFactory} from '../helpers/url-factory';
+const axios = require('axios');
 //to do local storage implementation
 export const AuthContext = createContext();
 
 export function AuthContextProvider(props){
     //state
+    const baseUrl = API_BASE_URL;
     const [authState,setAuthState] = useState({
         authKey:null,
         isLoggedIn:false,
@@ -63,11 +66,13 @@ export function AuthContextProvider(props){
         }
     }
 
-    const createUser = async (email,password) => {
+    const createUser = async (user) => {
         try{
             setLoading(true);
-            const user = await fb.createUserEmail(email,password);
+
+            const userData = await fb.createUserEmail(user.email,user.password);
             const authToken = await fb.getToken();
+            const createRes = await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
@@ -84,8 +89,16 @@ export function AuthContextProvider(props){
 
     const googleSignIn = async () => {
         try {
-            const user = await fb.signInWithGoogle();
+            const userData = await fb.signInWithGoogle();
+            let splitName = userData.displayName.split(' ');
+
+            let user = {
+                email:userData.email,
+                firstName:splitName[0],
+                lastName:splitName[1]
+            };
             const authToken = await fb.getToken();
+            const createRes = await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
@@ -96,6 +109,27 @@ export function AuthContextProvider(props){
         catch(e){
             console.log('error creating user',e);
             resetAuth(e);
+        }
+    }
+
+    const createAppUser = async (user,authtoken) => {
+        let project = urlFactory.getProject().toUpperCase();
+        let headers = {
+            headers:{
+                project,
+                authtoken
+            }
+        };
+        user.project = [project];
+        delete user.password;
+        let url = `${baseUrl}/users`;
+        try{
+            const response = await axios.post(url,{user:user},headers);
+            return response;
+        }
+        catch(e){
+            console.warn('Error saving new user: ',e);
+            throw e;
         }
     }
 

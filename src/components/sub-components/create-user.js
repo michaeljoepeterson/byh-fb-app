@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {AuthContext} from '../../contexts/auth-context';
+import {urlFactory} from '../../helpers/url-factory';
 import './styles/login-form.css';
 
 export default function CreateUserForm(props){
@@ -26,13 +28,20 @@ export default function CreateUserForm(props){
         event.persist();
         event.preventDefault();
         setCustError(null);
+
         if(pass !== confirmPass){
             setCustError('passwords do not match');
             return ;
         }
-        if(email && pass){
+        if(email && pass && firstName && lastName){
             try{
-                await createUser(email,pass);
+                let user = {
+                    email,
+                    password:pass,
+                    firstName,
+                    lastName
+                }
+                await createUser(user);
             }
             catch(e){
 
@@ -56,10 +65,11 @@ export default function CreateUserForm(props){
             setFirstName(val);
         }
         else if(type === lastNameType){
-            setFirstName(lastName);
+            setLastName(val);
         }
     }
     let displayLoading = authLoading;
+    let homeUrl = urlFactory.buildLink();
     //console.log('loading: ',displayLoading);
     //console.log('render form',authError,displayLoading);
     return(
@@ -69,22 +79,32 @@ export default function CreateUserForm(props){
                 <div className="input-container">
                     <TextField required id="user" label="Email" variant="outlined" helperText={authError || custError ? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,emailType)}/>
                 </div>
-                <div className="input-container">
-                    <TextField required id="password" label="Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,passType)}/>
-                </div>
-                <div className="input-container">
-                    <TextField required id="password" label="Confirm Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,confirmPassType)}/>
-                </div>
-                <div className="input-container">
+                <Grid container justify="center">
+                    <Grid item xs={12} className="input-container">
+                        <TextField required id="firstName" label="First Name" variant="outlined" type="text" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,firstNameType)}/>
+                    </Grid>
+                    <Grid item xs={12} className="input-container">
+                        <TextField required id="lastName" label="Last Name" variant="outlined" type="text" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,lastNameType)}/>
+                    </Grid>
+                </Grid>
+                <Grid container justify="center">
+                    <Grid item xs={12} className="input-container">
+                        <TextField required id="password" label="Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,passType)}/>
+                    </Grid>
+                    <Grid item xs={12} className="input-container">
+                        <TextField required id="password" label="Confirm Password" variant="outlined" type="password" helperText={authError || custError? 'Error Creating Account' : ''} onChange={(e) => inputChanged(e,confirmPassType)}/>
+                    </Grid>
+                </Grid>
+                <div className="button-container">
                     <CircularProgress className={displayLoading ? '' : 'hidden'} />
-                    <Link className="button-link" to="/">
+                    <Link className="button-link" to={homeUrl}>
                         <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary">
                         Login
                         </Button>
                     </Link>
                     <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" type="submit">Create</Button>
                 </div>
-                <div class="google-sign-in">
+                <div className="google-sign-in">
                     <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" onClick={(e) => googleSignIn()}>Sign In With Google</Button>
                 </div>
             </form>

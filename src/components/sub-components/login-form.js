@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {AuthContext} from '../../contexts/auth-context';
+import {urlFactory} from '../../helpers/url-factory';
 import './styles/login-form.css';
 
 export default function LoginForm(props){
@@ -40,6 +41,7 @@ export default function LoginForm(props){
         }
     }
     let displayLoading = authLoading;
+    let createLink = urlFactory.buildLink('create-admin');
     //console.log('loading: ',displayLoading);
     //console.log('render form',authError,displayLoading);
     return(
@@ -55,7 +57,7 @@ export default function LoginForm(props){
                 <div className="input-container">
                     <CircularProgress className={displayLoading ? '' : 'hidden'} />
                     <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary" type="submit">Login</Button>
-                    <Link className="button-link" to="/create-admin">
+                    <Link className="button-link" to={createLink}>
                         <Button className={displayLoading ? 'hidden' : ''} variant="contained" color="primary">
                         Create
                         </Button>

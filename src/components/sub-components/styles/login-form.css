@@ -5,17 +5,21 @@
     margin: 1em;
 }
 
-.input-container{
-    padding:1.5em;
+.input-container,.button-container{
+    padding:1em;
     display: flex;
     align-items:center;
     justify-content: space-evenly;
 }
 
+.button-container{
+    padding:1.5em;
+}
+/*
 .input-container:last-of-type{
     padding-bottom: 0;
 }
-
+*/
 .form-title{
     margin-top: 0;
     text-align: center;

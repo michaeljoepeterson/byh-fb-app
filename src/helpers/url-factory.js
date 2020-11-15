@@ -5,7 +5,7 @@ class UrlFactory{
     constructor(){
         this.baseUrl = window.location.host;
         
-        this.getProject();
+        this.setAppProject();
     }
 
     setProject = (project) =>{
@@ -24,7 +24,7 @@ class UrlFactory{
         return projectLink;
     }
 
-    getProject = () => {
+    setAppProject = () => {
         this.currentUrl = window.location.href;
         let strippedUrl = this.currentUrl.replace('http://','');
         strippedUrl = strippedUrl.replace('https://','');
@@ -47,6 +47,10 @@ class UrlFactory{
         else {
             return false;
         }
+    }
+
+    getProject = () => {
+        return this.project;
     }
 
 }
