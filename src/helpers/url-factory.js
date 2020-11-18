@@ -53,6 +53,11 @@ class UrlFactory{
         return this.project;
     }
 
+    getPageRoute = (pathname) => {
+        let cleanedPath = pathname.replace(`/${this.project}/`,'');
+        return cleanedPath;
+    }
+
 }
 
 export let urlFactory = new UrlFactory();

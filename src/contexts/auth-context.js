@@ -14,9 +14,10 @@ export function AuthContextProvider(props){
         authKey:null,
         isLoggedIn:false,
         authLoading:false,
-        authError:null,
-        currentUser:null
+        authError:null
     });
+
+    const [currentUser,setCurrentUser] = useState(null);
 
     const updateState = newState => setAuthState(Object.assign({}, authState, newState));
 
@@ -44,15 +45,10 @@ export function AuthContextProvider(props){
         newState.authKey = authToken;
         newState.authError = null;
         newState.authLoading = false;
+    
         updateState(newState);
     }
-
-    const updateUser = (user) => {
-        let newState = {...authState};
-        newState.currentUser = user;
-        updateState(newState);
-    }
-
+    
     const login = async (email,password) => {
         try{
             setLoading(true);
@@ -156,8 +152,8 @@ export function AuthContextProvider(props){
         let url = `${baseUrl}/users/check`;
         try{
             const response = await axios.get(url,headers);
-            updateUser(response.user);
-            return response.user;
+            setCurrentUser(response.data.user);
+            return response.data.user;
         }
         catch(e){
             console.warn('Error saving new user: ',e);
@@ -171,6 +167,7 @@ export function AuthContextProvider(props){
             authError:authState.authError,
             authKey:authState.authKey,
             authLoading:authState.authLoading,
+            currentUser:currentUser,
             login,
             createUser,
             googleSignIn

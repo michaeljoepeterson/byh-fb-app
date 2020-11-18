@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Route ,useHistory,Switch } from 'react-router-dom';
 import LandingPage from './components/pages/landing-page';
 import ProtectedPage from './components/pages/protected-page';
+import AccessPage from './components/pages/access-page';
 import {AuthContextProvider} from './contexts/auth-context';
 import {FirebaseContextProvider} from './contexts/firebase-context';
 import {ByhReqContextProvider} from './contexts/byh-req-context';
@@ -9,7 +10,6 @@ import {urlFactory} from './helpers/url-factory';
 import './App.css';
 
 function App() {
-  console.log(urlFactory.project);
   const [project,setProject] = useState(urlFactory.project);
   const [isChecked,setIsChecked] = useState(false);
   const history = useHistory();
@@ -32,7 +32,8 @@ function App() {
   
   let landingPageUrl = `/${project}/`;
   let protectedPageUrl = `/${project}/protected`;
-  let createAdminUrl = `/${project}/create-admin`
+  let createAdminUrl = `/${project}/create-admin`;
+  let accessPageUrl = `/${project}/access`;
 
   return (
     <FirebaseContextProvider>
@@ -47,6 +48,9 @@ function App() {
             } />
             <Route exact path={createAdminUrl} render={(props) => (
               <LandingPage key={props.match.params.pageid} {...props} />)
+            } />
+            <Route exact path={accessPageUrl} render={(props) => (
+              <AccessPage key={props.match.params.pageid} {...props} />)
             } />
             <Route render={(props) => (
               <LandingPage key={props.match.params.pageid} {...props}/>)} 

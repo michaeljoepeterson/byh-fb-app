@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import RequiresLogin from '../../HOC/requires-login';
+import CheckUserLevel from '../../HOC/check-user-level';
 import {ByhReqContext} from '../../contexts/byh-req-context';
 import Button from '@material-ui/core/Button';
 import FormTable from '../sub-components/form-table';
@@ -40,4 +41,4 @@ function ProtectedPage(props){
     )
 }
 
-export default RequiresLogin()(ProtectedPage);
+export default RequiresLogin()(CheckUserLevel(1)(ProtectedPage));
