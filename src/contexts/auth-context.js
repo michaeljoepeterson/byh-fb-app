@@ -14,7 +14,8 @@ export function AuthContextProvider(props){
         authKey:null,
         isLoggedIn:false,
         authLoading:false,
-        authError:null
+        authError:null,
+        currentUser:null
     });
 
     const updateState = newState => setAuthState(Object.assign({}, authState, newState));
@@ -46,12 +47,21 @@ export function AuthContextProvider(props){
         updateState(newState);
     }
 
+    const updateUser = (user) => {
+        let newState = {...authState};
+        newState.currentUser = user;
+        updateState(newState);
+    }
+
     const login = async (email,password) => {
         try{
             setLoading(true);
-            const user = await fb.signInEmail(email,password);
+            const userData = await fb.signInEmail(email,password);
             const authToken = await fb.getToken();
-
+            let user ={
+                email
+            };
+            const createRes = await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
@@ -125,7 +135,29 @@ export function AuthContextProvider(props){
         let url = `${baseUrl}/users`;
         try{
             const response = await axios.post(url,{user:user},headers);
+            await getUserDetails(authtoken);
             return response;
+        }
+        catch(e){
+            console.warn('Error saving new user: ',e);
+            throw e;
+        }
+    }
+
+    const getUserDetails = async (authtoken) =>{
+        let project = urlFactory.getProject().toUpperCase();
+        let headers = {
+            headers:{
+                project,
+                authtoken
+            }
+        };
+
+        let url = `${baseUrl}/users/check`;
+        try{
+            const response = await axios.get(url,headers);
+            updateUser(response.user);
+            return response.user;
         }
         catch(e){
             console.warn('Error saving new user: ',e);
