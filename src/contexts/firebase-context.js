@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, {  createContext } from 'react';
 import Firebase from '../fb/firebase';
 
 export const FirebaseContext = createContext();

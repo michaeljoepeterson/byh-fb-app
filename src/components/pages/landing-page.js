@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { withRouter} from 'react-router-dom';
 import {AuthContext} from '../../contexts/auth-context';
 import CreateUserForm from '../sub-components/create-user';
+import {urlFactory} from '../../helpers/url-factory';
 import './styles/landing-page.css';
 
 export function LandingPage(props){
@@ -12,16 +13,11 @@ export function LandingPage(props){
     console.log(props.location.pathname);
     const isCreate = props.location.pathname.includes('create-admin');
     if(isLoggedIn){
-        return <Redirect to='/protected'/>;
+        let url = urlFactory.buildLink('protected');
+        return <Redirect to={url}/>;
     }
 
-    if(props.location.pathname.includes('/test')){
-        //props.dispatch(enableTestMode());
-        return <Redirect to='/'/>;
-    }
-    
-
-    console.log('is logged in context: ',isLoggedIn);
+    //console.log('is logged in context: ',isLoggedIn);
     const form = isCreate ? <CreateUserForm title={title}/> : <LoginForm title={title}/>;
     return(
         <div className="center-container">

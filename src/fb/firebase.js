@@ -11,7 +11,7 @@ class Firebase {
     //}
 
     this.auth = app.auth();
-    this.provider = new firebase.auth.GoogleAuthProvider;
+    this.provider = new firebase.auth.GoogleAuthProvider();
   }
 
   signInWithGoogle = async () =>{
@@ -20,6 +20,7 @@ class Firebase {
       if(!result){
         throw {message:'no account selected'};
       }
+      //result.user.
       return result.user;
     }
     catch(e){

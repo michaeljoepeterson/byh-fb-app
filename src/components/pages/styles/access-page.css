@@ -1,0 +1,11 @@
+.access-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 2em;
+}
+
+.access-container > div{
+    padding: 2em;
+}
