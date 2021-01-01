@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 //import {API_BASE_URL} from '../config';
 import {FirebaseContext} from '../contexts/firebase-context';
+import {CurrentFbToken} from '../fb/firebase';
 import {API_BASE_URL} from '../config';
 import {urlFactory} from '../helpers/url-factory';
 const axios = require('axios');
@@ -8,8 +9,16 @@ const axios = require('axios');
 export const AuthContext = createContext();
 
 export function AuthContextProvider(props){
+    //subscribe to fb token changes
+    CurrentFbToken.subscribe(async (authToken) => {
+        if(authToken){
+            const createRes = await getUserDetails(authToken);
+            setAuth(authToken);
+        }
+    });
     //state
     const baseUrl = API_BASE_URL;
+    const [initialLoad,setInitialLoad] = useState(false);
     const [authState,setAuthState] = useState({
         authKey:null,
         isLoggedIn:false,
@@ -21,7 +30,7 @@ export function AuthContextProvider(props){
 
     const updateState = newState => setAuthState(Object.assign({}, authState, newState));
 
-    const fb = useContext(FirebaseContext); 
+    const fb = useContext(FirebaseContext);
 
     const resetAuth = (err) => {
         let newState = {...authState};

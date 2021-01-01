@@ -2,7 +2,10 @@ import app from 'firebase/app';
 import {fbConfig} from '../firebase-config';
 import 'firebase/auth';
 import firebase from 'firebase';
- 
+import {Subject} from 'rxjs';
+
+export let CurrentFbToken = new Subject();
+
 class Firebase {
   //can optionally use returned user to get auth token
   constructor() {
@@ -12,6 +15,19 @@ class Firebase {
 
     this.auth = app.auth();
     this.provider = new firebase.auth.GoogleAuthProvider();
+    this.currentUser = null;
+    //potentially use rxjs observables to handle this?
+    //service change to set auth change context?
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if(user){
+        this.currentUser = user;
+        let token = await this.getToken();
+        CurrentFbToken.next(token);
+      }
+      else{
+        this.currentUser = null;
+      }
+    });
   }
 
   signInWithGoogle = async () =>{
@@ -63,7 +79,7 @@ class Firebase {
 
   getToken = async () => {
       try{
-        let token = await this.auth.currentUser.getIdToken(true);
+        let token = this.currentUser ? await this.currentUser.getIdToken() : await this.auth.currentUser.getIdToken(true);
         return token;
       } 
       catch(e){

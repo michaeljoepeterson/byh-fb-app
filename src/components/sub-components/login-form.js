@@ -42,6 +42,7 @@ export default function LoginForm(props){
     }
     let displayLoading = authLoading;
     let createLink = urlFactory.buildLink('create-admin');
+
     //console.log('loading: ',displayLoading);
     //console.log('render form',authError,displayLoading);
     return(
