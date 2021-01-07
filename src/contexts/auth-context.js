@@ -10,12 +10,7 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider(props){
     //subscribe to fb token changes
-    authService.currentFbToken.subscribe(async (authToken) => {
-        if(authToken){
-            await getUserDetails(authToken);
-            setAuth(authToken);
-        }
-    });
+    
     //state
     const baseUrl = API_BASE_URL;
 
@@ -39,7 +34,8 @@ export function AuthContextProvider(props){
         newState.isLoggedIn = false;
         newState.authLoading = false;
         newState.authError = err ? err : null;
-        
+        newState.initialCheck = false;
+
         updateState(newState);
     }
 
@@ -172,6 +168,23 @@ export function AuthContextProvider(props){
         }
     }
 
+    const logout = async() => {
+        try{
+            await fb.logout();
+            resetAuth();
+        }
+        catch(e){
+            console.warn('Error logging out: ',e);
+            throw e; 
+        }
+    }
+    authService.currentFbToken.subscribe(async (authToken) => {
+        if(authToken){
+            await getUserDetails(authToken);
+            setAuth(authToken);
+        }
+    });
+
     return (
         <AuthContext.Provider value={{
             isLoggedIn:authState.isLoggedIn,
@@ -183,6 +196,7 @@ export function AuthContextProvider(props){
             login,
             createUser,
             googleSignIn,
+            logout
             }}>
             {props.children}
         </AuthContext.Provider>

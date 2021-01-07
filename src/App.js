@@ -3,6 +3,7 @@ import {Route ,useHistory,Switch } from 'react-router-dom';
 import LandingPage from './components/pages/landing-page';
 import ProtectedPage from './components/pages/protected-page';
 import AccessPage from './components/pages/access-page';
+import Navbar from './components/sub-components/nav';
 import {AuthContextProvider} from './contexts/auth-context';
 import {FirebaseContextProvider} from './contexts/firebase-context';
 import {ByhReqContextProvider} from './contexts/byh-req-context';
@@ -39,6 +40,7 @@ function App() {
     <FirebaseContextProvider>
       <AuthContextProvider>
         <ByhReqContextProvider>
+          <Navbar/>
           <Switch>
             <Route exact path={landingPageUrl}  render={(props) => (
               <LandingPage key={props.match.params.pageid} {...props}/>)

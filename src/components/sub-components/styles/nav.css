@@ -1,0 +1,14 @@
+.nav-container{
+    margin-bottom: 5em;
+}
+
+.nav-header{
+    flex-grow: 1;
+}
+
+.nav-drawer{
+    width: 20rem;
+}
+.nav-drawer-item{
+    padding-left: 1rem;
+}
