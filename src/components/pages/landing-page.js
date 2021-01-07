@@ -9,7 +9,7 @@ import './styles/landing-page.css';
 
 export function LandingPage(props){
     const title = 'BYH App';
-    const {isLoggedIn} = useContext(AuthContext); 
+    const {isLoggedIn,initialCheck} = useContext(AuthContext); 
     console.log(props.location.pathname);
     const isCreate = props.location.pathname.includes('create-admin');
     if(isLoggedIn){
@@ -17,8 +17,10 @@ export function LandingPage(props){
         return <Redirect to={url}/>;
     }
 
-    //console.log('is logged in context: ',isLoggedIn);
-    const form = isCreate ? <CreateUserForm title={title}/> : <LoginForm title={title}/>;
+    let form = isCreate ? <CreateUserForm title={title}/> : <LoginForm title={title}/>;
+    if(initialCheck){
+        return null;
+    }
     return(
         <div className="center-container">
             {form}

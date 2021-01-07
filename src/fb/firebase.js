@@ -2,9 +2,7 @@ import app from 'firebase/app';
 import {fbConfig} from '../firebase-config';
 import 'firebase/auth';
 import firebase from 'firebase';
-import {Subject} from 'rxjs';
-
-export let CurrentFbToken = new Subject();
+import authService from '../services/auth-service';
 
 class Firebase {
   //can optionally use returned user to get auth token
@@ -22,7 +20,7 @@ class Firebase {
       if(user){
         this.currentUser = user;
         let token = await this.getToken();
-        CurrentFbToken.next(token);
+        authService.currentFbToken.next(token);
       }
       else{
         this.currentUser = null;

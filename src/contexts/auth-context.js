@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 //import {API_BASE_URL} from '../config';
 import {FirebaseContext} from '../contexts/firebase-context';
-import {CurrentFbToken} from '../fb/firebase';
+import authService from '../services/auth-service';
 import {API_BASE_URL} from '../config';
 import {urlFactory} from '../helpers/url-factory';
 const axios = require('axios');
@@ -10,20 +10,21 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider(props){
     //subscribe to fb token changes
-    CurrentFbToken.subscribe(async (authToken) => {
+    authService.currentFbToken.subscribe(async (authToken) => {
         if(authToken){
-            const createRes = await getUserDetails(authToken);
+            await getUserDetails(authToken);
             setAuth(authToken);
         }
     });
     //state
     const baseUrl = API_BASE_URL;
-    const [initialLoad,setInitialLoad] = useState(false);
+
     const [authState,setAuthState] = useState({
         authKey:null,
         isLoggedIn:false,
         authLoading:false,
-        authError:null
+        authError:null,
+        initialCheck:true
     });
 
     const [currentUser,setCurrentUser] = useState(null);
@@ -54,7 +55,8 @@ export function AuthContextProvider(props){
         newState.authKey = authToken;
         newState.authError = null;
         newState.authLoading = false;
-    
+        newState.initialCheck = false;
+
         updateState(newState);
     }
     
@@ -177,9 +179,10 @@ export function AuthContextProvider(props){
             authKey:authState.authKey,
             authLoading:authState.authLoading,
             currentUser:currentUser,
+            initialCheck:authState.initialCheck,
             login,
             createUser,
-            googleSignIn
+            googleSignIn,
             }}>
             {props.children}
         </AuthContext.Provider>
