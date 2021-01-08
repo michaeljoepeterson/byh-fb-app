@@ -24,6 +24,7 @@ class Firebase {
       }
       else{
         this.currentUser = null;
+        authService.currentFbToken.next(null);
       }
     });
   }

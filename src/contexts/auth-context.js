@@ -183,6 +183,9 @@ export function AuthContextProvider(props){
             await getUserDetails(authToken);
             setAuth(authToken);
         }
+        else{
+            resetAuth();
+        }
     });
 
     return (
