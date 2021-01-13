@@ -26,9 +26,8 @@ function ProtectedPage(props){
     const formTable = formData ? (<FormTable forms={[formData.document]}/>) : null;
     return(
         <div style={placeholderStyles}>
-            <p>protected page</p>
             <div className="form-controls">
-                <FormSearchControls />
+                <FormSearchControls searchTitle="Search Intake Forms"/>
             </div>
             <div>
                 {formTable}

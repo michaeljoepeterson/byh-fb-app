@@ -11,7 +11,7 @@ function FormSearchControls(props){
 
     return(
         <div>
-            <FormSearchFields formsUpdated={formsUpdated}/>
+            <FormSearchFields formsUpdated={formsUpdated} title={props.searchTitle}/>
         </div>
     );
 }

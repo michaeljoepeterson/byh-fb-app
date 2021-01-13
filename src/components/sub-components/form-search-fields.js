@@ -40,7 +40,7 @@ function FormSearchFields(props){
 
     return(
         <div>
-            <h2>Search Forms</h2>
+            <h2>{props.title ? props.title : "Search Forms" }</h2>
             <form onSubmit={(e) => searchForms(e)}>
                 <Grid alignItems="center" container justify="center" spacing={fieldSpacing}>
                     <Grid item xs={12} md={3}>
