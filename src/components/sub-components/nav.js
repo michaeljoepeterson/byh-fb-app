@@ -30,10 +30,10 @@ function Navbar(props){
     let navList = (
         <div className="nav-drawer">
             <List>
-                {navItems.map(page => {
+                {navItems.map((page,i) => {
                     return (
-                        <div>
-                            <ListItemText className="nav-drawer-item" key={page.name}>{page.name}</ListItemText>
+                        <div key={page.name + i}>
+                            <ListItemText className="nav-drawer-item">{page.name}</ListItemText>
                             <Divider />
                         </div>
                     );

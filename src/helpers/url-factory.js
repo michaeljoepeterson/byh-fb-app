@@ -50,7 +50,7 @@ class UrlFactory{
     }
 
     getProject = () => {
-        return this.project;
+        return this.project.toUpperCase();
     }
 
     getPageRoute = (pathname) => {
