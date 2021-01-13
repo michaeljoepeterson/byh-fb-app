@@ -10,6 +10,7 @@ export function ByhReqContextProvider(props){
     const [currentForms,setForms] = useState(null);
     const baseUrl = API_BASE_URL;
     const fb = useContext(FirebaseContext); 
+    const dateField = "Contact Date";
     const defualtConfig = {
         headers:{
             authtoken:null,
@@ -21,13 +22,26 @@ export function ByhReqContextProvider(props){
         isLoading:false
     });
 
+    const buildFormQuery = (options) => {
+        let query = `?dateField=${dateField}`;
+        if(options.fromDate){
+            query += `&fromDate=${options.fromDate}`;
+        }
+        if(options.toDate){
+            query += `&toDate=${options.toDate}`;
+        }
+
+        return query;
+    }
+
     const getForms = async(queryOptions) => {
         try{
+            const query = queryOptions ? buildFormQuery(queryOptions) : '';
             let authtoken = await fb.getToken();
             let config = {...defualtConfig};
             config.headers.authtoken = authtoken;
             config.headers.project = urlFactory.getProject();
-            let url = `${baseUrl}/forms`;
+            let url = `${baseUrl}/forms${query}`;
             const response = await axios.get(url,config);
             //console.log(response);
             setForms(response.data.documents);
