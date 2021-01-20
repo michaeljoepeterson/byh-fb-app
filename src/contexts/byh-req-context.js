@@ -24,13 +24,19 @@ export function ByhReqContextProvider(props){
 
     const buildFormQuery = (options) => {
         let query = `?dateField=${dateField}`;
+        for(let key in options){
+            if(options[key]){
+                query += `&${key}=${options[key]}`;
+            }
+        }
+        /*
         if(options.fromDate){
             query += `&fromDate=${options.fromDate}`;
         }
         if(options.toDate){
             query += `&toDate=${options.toDate}`;
         }
-
+        */
         return query;
     }
 

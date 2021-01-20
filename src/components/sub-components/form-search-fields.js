@@ -6,7 +6,7 @@ import {ByhReqContext} from '../../contexts/byh-req-context';
 
 function FormSearchFields(props){
     const [formFields,setFormFields] = useState({
-        searchTerms:null,
+        searchText:null,
         fromDate:null,
         toDate:null
     });
@@ -44,7 +44,7 @@ function FormSearchFields(props){
             <form onSubmit={(e) => searchForms(e)}>
                 <Grid alignItems="center" container justify="center" spacing={fieldSpacing}>
                     <Grid item xs={12} md={3}>
-                        <TextField id="search-fields" label="Search Terms" type="text"/>
+                        <TextField id="search-fields" label="Search Terms" type="text" onChange={(e) => updateFields(e,'searchText')}/>
                     </Grid>
                     <Grid item xs={12} md={3}>
                         <TextField
