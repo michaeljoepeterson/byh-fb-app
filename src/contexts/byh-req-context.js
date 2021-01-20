@@ -29,14 +29,6 @@ export function ByhReqContextProvider(props){
                 query += `&${key}=${options[key]}`;
             }
         }
-        /*
-        if(options.fromDate){
-            query += `&fromDate=${options.fromDate}`;
-        }
-        if(options.toDate){
-            query += `&toDate=${options.toDate}`;
-        }
-        */
         return query;
     }
 

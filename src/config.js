@@ -11,3 +11,7 @@ export let pageConfig = [
         level:0
     }
 ];
+
+export let filterFields = [
+
+];

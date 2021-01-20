@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 import FormSearchFields from './form-search-fields';
+import Grid from '@material-ui/core/Grid';
+import FormFilters from './form-filters';
 
 function FormSearchControls(props){
 
@@ -10,9 +12,14 @@ function FormSearchControls(props){
     }
 
     return(
-        <div>
-            <FormSearchFields formsUpdated={formsUpdated} title={props.searchTitle}/>
-        </div>
+        <Grid alignItems="center" container justify="center">
+            <Grid item xs={12}>
+                <FormSearchFields formsUpdated={formsUpdated} title={props.searchTitle}/>
+            </Grid>
+            <Grid item xs={12}>
+                <FormFilters currentForms={props.currentForms}/>
+            </Grid>
+        </Grid>
     );
 }
 

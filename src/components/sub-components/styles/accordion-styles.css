@@ -1,0 +1,18 @@
+.filter-container{
+    margin: 1em auto;
+    width: 70%;
+}
+
+.accordion-header,.accordion-description{
+    margin: 0.5em !important;
+}
+
+.accordion-header{
+    font-weight: bold !important;
+}
+
+@media only screen and (min-width: 800px) {
+    .accordion-header,.accordion-description{
+        margin: 0.8em !important;
+    }
+  }

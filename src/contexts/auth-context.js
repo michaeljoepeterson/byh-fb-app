@@ -64,7 +64,7 @@ export function AuthContextProvider(props){
             let user ={
                 email
             };
-            const createRes = await createAppUser(user,authToken);
+            await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
@@ -83,9 +83,9 @@ export function AuthContextProvider(props){
         try{
             setLoading(true);
 
-            const userData = await fb.createUserEmail(user.email,user.password);
+            await fb.createUserEmail(user.email,user.password);
             const authToken = await fb.getToken();
-            const createRes = await createAppUser(user,authToken);
+            await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
@@ -111,7 +111,7 @@ export function AuthContextProvider(props){
                 lastName:splitName[1]
             };
             const authToken = await fb.getToken();
-            const createRes = await createAppUser(user,authToken);
+            await createAppUser(user,authToken);
             if(authToken){
                 setAuth(authToken);
             }
