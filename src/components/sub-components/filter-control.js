@@ -44,7 +44,7 @@ export default function FilterControl(props){
                 options={filteredResponses}
                 getOptionLabel={(option) => option[props.target] ? option[props.target] : ''}
                 style={{ maxWidth: 300 }}
-                renderInput={(params) => <TextField {...params} label={props.title ? props.title : props.target} variant="outlined" style = {{width: '100%'}}
+                renderInput={(params) => <TextField fullWidth {...params} label={props.title ? props.title : props.target} variant="outlined" style = {{width: '100%'}}
                 />}
                 />
         ) :(
@@ -54,7 +54,7 @@ export default function FilterControl(props){
                 getOptionLabel={(option) => option[props.target] ? option[props.target] : ''}
                 style={{ maxWidth: 300 }}
                 value={ props.value? props.value : null}
-                renderInput={(params) => <TextField {...params} label={props.title ? props.title : props.target} 
+                renderInput={(params) => <TextField fullWidth {...params} label={props.title ? props.title : props.target} 
                 variant="outlined" style = {{width: '100%'}}
                 />}
                 />

@@ -1,6 +1,7 @@
 .filter-container{
     margin: 1em auto;
-    width: 70%;
+    width: 80%;
+    max-width: 1050px;
 }
 
 .accordion-header,.accordion-description{
