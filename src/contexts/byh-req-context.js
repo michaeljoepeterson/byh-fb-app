@@ -7,6 +7,7 @@ const axios = require('axios');
 export const ByhReqContext = createContext();
 
 export function ByhReqContextProvider(props){
+    const [masterForms,setMasterForms] = useState(null);
     const [currentForms,setForms] = useState(null);
     const baseUrl = API_BASE_URL;
     const fb = useContext(FirebaseContext); 
@@ -42,6 +43,7 @@ export function ByhReqContextProvider(props){
             let url = `${baseUrl}/forms${query}`;
             const response = await axios.get(url,config);
             //console.log(response);
+            setMasterForms(response.data.documents);
             setForms(response.data.documents);
             return response.data;
         }
@@ -51,11 +53,17 @@ export function ByhReqContextProvider(props){
         }
     }
 
+    const updateCurrentForms = (newForms) => {
+       setForms(newForms); 
+    }
+
     return (
         <ByhReqContext.Provider value={{
             isLoading:reqState.isLoading,
             getForms,
-            currentForms
+            currentForms,
+            updateCurrentForms,
+            masterForms
         }}>
             {props.children}
         </ByhReqContext.Provider>

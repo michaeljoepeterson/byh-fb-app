@@ -11,7 +11,12 @@ export let pageConfig = [
         level:0
     }
 ];
-
-export let filterFields = [
-
-];
+//object to represent what fields should appear as a filter
+//eventually defined by a admin
+export let filterFields = {
+    152041769:{},
+    537383970:{},
+    1553411245:{},
+    1717973430:{},
+    1762050626:{}
+};

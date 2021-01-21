@@ -7,8 +7,9 @@ import FormSearchControls from '../sub-components/form-search-controls';
 import './styles/form-controls.css';
 
 function ProtectedPage(props){
-    const [formData,setFormData] = useState(null);
-    const {currentForms} = useContext(ByhReqContext); 
+    //const [formData,setFormData] = useState(null);
+    const {masterForms,currentForms} = useContext(ByhReqContext);
+
     const placeholderStyles = {
         display:'flex',
         flexDirection:'column',
@@ -20,14 +21,16 @@ function ProtectedPage(props){
         console.log("updated forms: ",forms)
     }
     */
+    
     //can optionally grab current forms from req context or pass a update function to 
     //have more control over updating forms
-    console.log(currentForms);
-    const formTable = formData ? (<FormTable forms={[formData.document]}/>) : null;
+    console.log('master forms: ',masterForms);
+    console.log('current forms: ',currentForms);
+    const formTable = currentForms ? (<FormTable forms={currentForms}/>) : null;
     return(
         <div style={placeholderStyles}>
             <div className="form-controls">
-                <FormSearchControls searchTitle="Search Intake Forms" currentForms={currentForms}/>
+                <FormSearchControls searchTitle="Search Intake Forms" currentForms={masterForms}/>
             </div>
             <div>
                 {formTable}

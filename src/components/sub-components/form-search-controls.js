@@ -9,6 +9,9 @@ function FormSearchControls(props){
         if(props.formsUpdated){
             props.formsUpdated(forms);
         }
+        if(props.filtersUpdated){
+            props.filtersUpdated(forms);
+        }
     }
 
     return(
@@ -17,7 +20,7 @@ function FormSearchControls(props){
                 <FormSearchFields formsUpdated={formsUpdated} title={props.searchTitle}/>
             </Grid>
             <Grid item xs={12}>
-                <FormFilters currentForms={props.currentForms}/>
+                <FormFilters formsUpdated={formsUpdated}  currentForms={props.currentForms}/>
             </Grid>
         </Grid>
     );
