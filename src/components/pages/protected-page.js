@@ -26,9 +26,10 @@ function ProtectedPage(props){
     //have more control over updating forms
     console.log('master forms: ',masterForms);
     console.log('current forms: ',currentForms);
+
     const formTable = currentForms ? (<FormTable forms={currentForms}/>) : null;
     return(
-        <div style={placeholderStyles}>
+        <div className="search-container" style={placeholderStyles}>
             <div className="form-controls">
                 <FormSearchControls searchTitle="Search Intake Forms" currentForms={masterForms}/>
             </div>

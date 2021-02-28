@@ -13,7 +13,7 @@ function FormTable(props){
 
     const createTable = (forms) =>{
         let rows = forms.map(form => {
-            return
+            return(<p>hi</p>)
         });
         return rows
     };
