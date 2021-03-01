@@ -85,11 +85,15 @@ function FormFilters(props){
                         selectedValues.push(value);
                     }
                 }
-    
-                let newForms = props.currentForms.filter(form => {
-                    return form.fields.find(field => selectedValues.includes(field.value));
-                });
-    
+                let newForms = [];
+                if(selectedValues.length === 0){
+                    newForms = [...props.currentForms];
+                }
+                else{
+                    newForms = props.currentForms.filter(form => {
+                        return form.fields.find(field => selectedValues.includes(field.value));
+                    });
+                }
                 updateCurrentForms(newForms);
                 if(props.formsUpdated){
                     props.formsUpdated(newForms);
