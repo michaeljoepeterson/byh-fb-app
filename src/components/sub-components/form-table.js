@@ -45,7 +45,7 @@ function FormTable(props){
                                     <TableRow>
                                         {
                                         form.fields.map(field => {
-                                            if(field.type.toLowerCase().trim() === 'date'){
+                                            if(field.type && field.type.toLowerCase().trim() === 'date'){
                                                 let dateValue = new Date(field.value);
                                                 return <TableCell>{dateValue.toDateString()}</TableCell>
                                             }
