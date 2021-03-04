@@ -71,7 +71,7 @@ function FormFilters(props){
         
     } 
 
-    const formControls = props.currentForms ? buildFilters(props.currentForms) : null
+    const formControls = props.currentForms ? buildFilters(props.currentForms) : null;
 
     useEffect(() => {
         try{

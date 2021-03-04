@@ -11,60 +11,70 @@ import './styles/form-table.css';
 
 function FormTable(props){
     //const [formData,setFormData] = useState(null);
-    const formData = props.forms ? props.forms : [];
+    let formData = props.forms ? [...props.forms] : [];
+    formData = formData.map(form => {
+        form.fields = form.fields.sort((a,b) => {
+            if(a.title < b.title){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        });
+
+        return form;
+    })
 
     return(
-        <div className="form-table-container">
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {
-                                formData.length > 0 ? formData[0].fields.map(field => {
-                                    try{
-                                        if(field && field.title){
-                                            return(<TableCell key={field.title}>{field.title}</TableCell>
-                                            );
-                                        }
-                                        return null;
-                                    }
-                                    catch(e){
-                                        console.warn('Error builing headers: ', e);
-                                        return null;
-                                    }
-                                }): 
-                                null
-                            }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+        <TableContainer className="form-table-container" component={Paper}>
+            <Table stickyHeader >
+                <TableHead>
+                    <TableRow>
                         {
-                            formData.length > 0 ? 
-                            formData.map(form => {
-                                return (
-                                    <TableRow>
-                                        {
-                                        form.fields.map(field => {
-                                            if(field.type && field.type.toLowerCase().trim() === 'date'){
-                                                let dateValue = new Date(field.value);
-                                                return <TableCell>{dateValue.toDateString()}</TableCell>
-                                            }
-                                            else{
-                                                return (
-                                                <TableCell>{field.value}</TableCell>
-                                                )
-                                            }
-                                        })
-                                        }
-                                    </TableRow>
-                                );
-                            })
-                            : null
+                            formData.length > 0 ? formData[0].fields.map(field => {
+                                try{
+                                    if(field && field.title){
+                                        return(<TableCell key={field.title}>{field.title}</TableCell>
+                                        );
+                                    }
+                                    return null;
+                                }
+                                catch(e){
+                                    console.warn('Error builing headers: ', e);
+                                    return null;
+                                }
+                            }): 
+                            null
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {
+                        formData.length > 0 ? 
+                        formData.map((form,i) => {
+                            return (
+                                <TableRow key={i}>
+                                    {
+                                    form.fields.map(field => {
+                                        if(field.type && field.type.toLowerCase().trim() === 'date'){
+                                            let dateValue = new Date(field.value);
+                                            return <TableCell key={field.id + field.value}>{dateValue.toDateString()}</TableCell>
+                                        }
+                                        else{
+                                            return (
+                                            <TableCell key={field.id + field.value}>{field.value}</TableCell>
+                                            )
+                                        }
+                                    })
+                                    }
+                                </TableRow>
+                            );
+                        })
+                        : null
+                    }
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
 }
 
