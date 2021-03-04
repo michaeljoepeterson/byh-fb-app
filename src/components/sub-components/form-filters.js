@@ -40,7 +40,7 @@ function FormFilters(props){
                 }
             });
         });
-       
+       console.log(formData);
         for(let fieldId in formData){
             let {data,title} = formData[fieldId];
             let filterTitle = title.length > 30 ? title.slice(0,30) + '...' : title;

@@ -14,9 +14,9 @@ export let pageConfig = [
 //object to represent what fields should appear as a filter
 //eventually defined by a admin
 export let filterFields = {
-    152041769:{},
-    537383970:{},
-    1553411245:{},
-    1717973430:{},
-    1762050626:{}
+    "1610778761-BYH-PROD":{},
+    "1717973430-BYH-PROD":{},
+    "1955522531-BYH-PROD":{},
+    "152041769-BYH-PROD":{},
+    "1553411245-BYH-PROD":{}
 };
