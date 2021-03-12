@@ -10,7 +10,6 @@ import './styles/landing-page.css';
 export function LandingPage(props){
     const title = 'BYH App';
     const {isLoggedIn,initialCheck} = useContext(AuthContext); 
-    console.log(props.location.pathname);
     const isCreate = props.location.pathname.includes('create-admin');
     if(isLoggedIn){
         let url = urlFactory.buildLink('protected');

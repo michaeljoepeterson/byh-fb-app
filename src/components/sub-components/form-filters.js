@@ -82,7 +82,7 @@ function FormFilters(props){
                 for(let id in currentFilters){
                     let {value} = currentFilters[id];
                     if(value){
-                        selectedValues.push(value);
+                        selectedValues.push({id,value});
                     }
                 }
                 let newForms = [];
@@ -91,7 +91,9 @@ function FormFilters(props){
                 }
                 else{
                     newForms = props.currentForms.filter(form => {
-                        return form.fields.find(field => selectedValues.includes(field.value));
+                        return form.fields.find(field => {
+                            return selectedValues.find(val => val.id === field.id && field.value.includes(val.value))
+                        });
                     });
                 }
                 updateCurrentForms(newForms);
